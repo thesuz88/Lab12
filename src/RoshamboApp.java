@@ -15,6 +15,7 @@ public class RoshamboApp {
 
         System.out.println("Welcome to Rock, Paper, Scissors!\n");
 
+        //Stores name in Player class
         System.out.print("Enter your name: ");
         humanPlayer.setName(scan.nextLine());
 
@@ -22,15 +23,20 @@ public class RoshamboApp {
             System.out.println("Would you like to play against 'The Rock' or 'The Nerd'? (R/N)");
             String aiPlayer = scan.nextLine();
 
+            //method to validate the user selected a valid player option
             aiPlayer = validatePlayer(scan, aiPlayer);
 
             do {
+                //generates the string output based on what the user input
                 String userChoice = humanPlayer.generateRoshambo();
 
+                //if the user chose to play with "the rock" this method uses RockPlayer class
                 if (aiPlayer.equalsIgnoreCase("r")) {
                     playWithTheRock(humanPlayer, theRock, userChoice);
 
-                } else if (aiPlayer.equalsIgnoreCase("n")) {
+                }
+                //if the user chose to play with "The nerd" this method uses the RandomPlayer class
+                else if (aiPlayer.equalsIgnoreCase("n")) {
                     playWithTheNerd(humanPlayer, theNerd, userChoice);
                 }
 
@@ -42,6 +48,7 @@ public class RoshamboApp {
             System.out.println("Would you like to select a new opponent ('y' to continue, 'q' to quit)?");
             newOpponent = scan.nextLine();
 
+            //validates if the user typed a 'y' or a 'q'
             newOpponent = validateNewOpponent(scan, newOpponent);
 
         } while (newOpponent.equalsIgnoreCase("y"));
@@ -49,8 +56,8 @@ public class RoshamboApp {
         System.out.println("Glad you came to play!");
     }
 
-    private static String validateNewOpponent(Scanner scan, String newOpponent){
-        while (!newOpponent.equalsIgnoreCase("y")&& !newOpponent.equalsIgnoreCase("q")){
+    private static String validateNewOpponent(Scanner scan, String newOpponent) {
+        while (!newOpponent.equalsIgnoreCase("y") && !newOpponent.equalsIgnoreCase("q")) {
             System.out.println("Type 'y' to continue, 'q' to quit");
             newOpponent = scan.nextLine();
         }
@@ -75,10 +82,12 @@ public class RoshamboApp {
 
             } else if (pcChoice == "Scissors") {
                 System.out.println("You Win!");
+
             }
         } else if (userChoice == "Paper") {
             if (pcChoice == "Rock") {
                 System.out.println("You Win!");
+
             } else if (pcChoice == "Paper") {
                 System.out.println("Tie Game!");
             } else if (pcChoice == "Scissors") {
@@ -87,13 +96,14 @@ public class RoshamboApp {
         } else if (userChoice == "Scissors") {
             if (pcChoice == "Rock") {
                 System.out.println("You Lose!");
+
             } else if (pcChoice == "Paper") {
                 System.out.println("You win!");
+
             } else if (pcChoice == "Scissors") {
                 System.out.println("Tie Game!");
             }
         }
-
     }
 
     private static void playWithTheNerd(HumanPlayer humanPlayer, RandomPlayer theNerd, String userChoice) {

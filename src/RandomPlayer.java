@@ -11,6 +11,8 @@ public class RandomPlayer extends Player {
         int x = 0;
         Random y = new Random();
 
+        //random number generator to choose a number 1-3 inclusive.
+        //Random class starts at 0 and exclusively goes up to bound, which is why we add 1
         int randomNum = y.nextInt(3) + 1;
 
         if (randomNum == 1) {
