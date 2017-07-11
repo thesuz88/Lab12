@@ -16,13 +16,13 @@ public class HumanPlayer extends Player {
         rpsInput = validateChoice(rpsInput);
 
         if (rpsInput.equalsIgnoreCase("r")) {
-            return "Rock";
+            return Roshambo.ROCK.toString();
         }
         if (rpsInput.equalsIgnoreCase("p")) {
-            return "Paper";
+            return Roshambo.PAPER.toString();
         }
         if (rpsInput.equalsIgnoreCase("s")) {
-            return "Scissors";
+            return Roshambo.SCISSORS.toString();
         }
         else{
             return null;

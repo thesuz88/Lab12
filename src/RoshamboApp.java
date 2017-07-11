@@ -6,6 +6,10 @@ import java.util.Scanner;
 public class RoshamboApp {
 
     public static void main(String[] args) {
+        roshamboApp();
+    }
+
+    private static void roshamboApp() {
         Scanner scan = new Scanner(System.in);
         HumanPlayer humanPlayer = new HumanPlayer();
         RockPlayer theRock = new RockPlayer();
@@ -19,6 +23,13 @@ public class RoshamboApp {
         System.out.print("Enter your name: ");
         humanPlayer.setName(scan.nextLine());
 
+        opponentSelection(scan, humanPlayer, theRock, theNerd);
+
+        System.out.println("Glad you came to play!");
+    }
+
+    private static void opponentSelection(Scanner scan, HumanPlayer humanPlayer, RockPlayer theRock, RandomPlayer theNerd) {
+        String newOpponent;
         do {
             System.out.println("Would you like to play against 'The Rock' or 'The Nerd'? (R/N)");
             String aiPlayer = scan.nextLine();
@@ -26,24 +37,7 @@ public class RoshamboApp {
             //method to validate the user selected a valid player option
             aiPlayer = validatePlayer(scan, aiPlayer);
 
-            do {
-                //generates the string output based on what the user input
-                String userChoice = humanPlayer.generateRoshambo();
-
-                //if the user chose to play with "the rock" this method uses RockPlayer class
-                if (aiPlayer.equalsIgnoreCase("r")) {
-                    playWithTheRock(humanPlayer, theRock, userChoice);
-
-                }
-                //if the user chose to play with "The nerd" this method uses the RandomPlayer class
-                else if (aiPlayer.equalsIgnoreCase("n")) {
-                    playWithTheNerd(humanPlayer, theNerd, userChoice);
-                }
-
-                System.out.println("Would you like to play again? (Y/N)");
-                playAgain = scan.nextLine();
-
-            } while (playAgain.equalsIgnoreCase("y"));
+            playRoshambo(scan, humanPlayer, theRock, theNerd, aiPlayer);
 
             System.out.println("Would you like to select a new opponent ('y' to continue, 'q' to quit)?");
             newOpponent = scan.nextLine();
@@ -52,8 +46,27 @@ public class RoshamboApp {
             newOpponent = validateNewOpponent(scan, newOpponent);
 
         } while (newOpponent.equalsIgnoreCase("y"));
+    }
 
-        System.out.println("Glad you came to play!");
+    private static void playRoshambo(Scanner scan, HumanPlayer humanPlayer, RockPlayer theRock, RandomPlayer theNerd, String aiPlayer) {
+        String playAgain;
+        do {
+            //generates the string output based on what the user input
+            String userChoice = humanPlayer.generateRoshambo();
+
+            //if the user chose to play with "the rock" this method uses RockPlayer class
+            if (aiPlayer.equalsIgnoreCase("r")) {
+                playWithTheRock(humanPlayer, theRock, userChoice);
+            }
+            //if the user chose to play with "The nerd" this method uses the RandomPlayer class
+            else if (aiPlayer.equalsIgnoreCase("n")) {
+                playWithTheNerd(humanPlayer, theNerd, userChoice);
+            }
+
+            System.out.println("Would you like to play again? (Y/N)");
+            playAgain = scan.nextLine();
+
+        } while (playAgain.equalsIgnoreCase("y"));
     }
 
     private static String validateNewOpponent(Scanner scan, String newOpponent) {
@@ -73,50 +86,59 @@ public class RoshamboApp {
         return aiPlayer;
     }
 
-    public static void gameOutcomes(String userChoice, String pcChoice) {
+    public static String gameOutcomes(String userChoice, String pcChoice) {
+        String outcome = "";
         if (userChoice == "Rock") {
             if (pcChoice == "Rock") {
-                System.out.println("Tie Game!");
+                outcome = "Tie Game!";
+
             } else if (pcChoice == "Paper") {
-                System.out.println("You Lose!");
+                outcome = "You lose!";
 
             } else if (pcChoice == "Scissors") {
-                System.out.println("You Win!");
-
+                outcome = "you win!";
             }
         } else if (userChoice == "Paper") {
             if (pcChoice == "Rock") {
-                System.out.println("You Win!");
+                outcome = "you win!";
 
-            } else if (pcChoice == "Paper") {
-                System.out.println("Tie Game!");
-            } else if (pcChoice == "Scissors") {
-                System.out.println("You Lose!");
+            }
+            else if (pcChoice == "Paper") {
+                outcome = "Tie Game!";
+
+            }
+            else if (pcChoice == "Scissors") {
+                outcome = "You lose!";
+
             }
         } else if (userChoice == "Scissors") {
             if (pcChoice == "Rock") {
-                System.out.println("You Lose!");
+                outcome = "You lose!";
+
 
             } else if (pcChoice == "Paper") {
-                System.out.println("You win!");
+                outcome = "you win!";
+
 
             } else if (pcChoice == "Scissors") {
-                System.out.println("Tie Game!");
+                outcome = "Tie Game!";
+
             }
         }
+            return outcome;
     }
 
     private static void playWithTheNerd(HumanPlayer humanPlayer, RandomPlayer theNerd, String userChoice) {
         String randomChoice = theNerd.generateRoshambo();
         System.out.println("\n" + humanPlayer.getName() + ": " + userChoice);
         System.out.println("The Nerd: " + randomChoice);
-        gameOutcomes(userChoice, randomChoice);
+        System.out.println(gameOutcomes(userChoice, randomChoice));
     }
 
     private static void playWithTheRock(HumanPlayer humanPlayer, RockPlayer theRock, String userChoice) {
         String rock = theRock.generateRoshambo();
         System.out.println(humanPlayer.getName() + ": " + userChoice);
         System.out.println("The Rock: " + theRock.generateRoshambo());
-        gameOutcomes(userChoice, rock);
+        System.out.println(gameOutcomes(userChoice, rock));
     }
 }

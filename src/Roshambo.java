@@ -6,6 +6,14 @@ public enum Roshambo{
 
     @Override
     public String toString() {
-       return "Suck it";
+        switch (this){
+            case ROCK:
+                return "Rock";
+            case PAPER:
+                return "Paper";
+            case SCISSORS:
+                return "Scissors";
+            default: throw new IllegalArgumentException();
+        }
     }
 }
