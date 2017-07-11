@@ -16,6 +16,9 @@ public class RoshamboApp {
         RandomPlayer theNerd = new RandomPlayer();
         String playAgain = "y";
         String newOpponent = "y";
+        String enumRock = Roshambo.ROCK.toString();
+        String enumPaper = Roshambo.PAPER.toString();
+        String enumScissors = Roshambo.SCISSORS.toString();
 
         System.out.println("Welcome to Rock, Paper, Scissors!\n");
 
@@ -57,6 +60,7 @@ public class RoshamboApp {
             //if the user chose to play with "the rock" this method uses RockPlayer class
             if (aiPlayer.equalsIgnoreCase("r")) {
                 playWithTheRock(humanPlayer, theRock, userChoice);
+
             }
             //if the user chose to play with "The nerd" this method uses the RandomPlayer class
             else if (aiPlayer.equalsIgnoreCase("n")) {
@@ -86,46 +90,11 @@ public class RoshamboApp {
         return aiPlayer;
     }
 
-    public static String gameOutcomes(String userChoice, String pcChoice) {
-        String outcome = "";
-        if (userChoice == "Rock") {
-            if (pcChoice == "Rock") {
-                outcome = "Tie Game!";
-
-            } else if (pcChoice == "Paper") {
-                outcome = "You lose!";
-
-            } else if (pcChoice == "Scissors") {
-                outcome = "you win!";
-            }
-        } else if (userChoice == "Paper") {
-            if (pcChoice == "Rock") {
-                outcome = "you win!";
-
-            }
-            else if (pcChoice == "Paper") {
-                outcome = "Tie Game!";
-
-            }
-            else if (pcChoice == "Scissors") {
-                outcome = "You lose!";
-
-            }
-        } else if (userChoice == "Scissors") {
-            if (pcChoice == "Rock") {
-                outcome = "You lose!";
-
-
-            } else if (pcChoice == "Paper") {
-                outcome = "you win!";
-
-
-            } else if (pcChoice == "Scissors") {
-                outcome = "Tie Game!";
-
-            }
-        }
-            return outcome;
+    private static void playWithTheRock(HumanPlayer humanPlayer, RockPlayer theRock, String userChoice) {
+        String rock = theRock.generateRoshambo();
+        System.out.println(humanPlayer.getName() + ": " + userChoice);
+        System.out.println("The Rock: " + theRock.generateRoshambo());
+        System.out.println(gameOutcomes(userChoice, rock));
     }
 
     private static void playWithTheNerd(HumanPlayer humanPlayer, RandomPlayer theNerd, String userChoice) {
@@ -135,10 +104,45 @@ public class RoshamboApp {
         System.out.println(gameOutcomes(userChoice, randomChoice));
     }
 
-    private static void playWithTheRock(HumanPlayer humanPlayer, RockPlayer theRock, String userChoice) {
-        String rock = theRock.generateRoshambo();
-        System.out.println(humanPlayer.getName() + ": " + userChoice);
-        System.out.println("The Rock: " + theRock.generateRoshambo());
-        System.out.println(gameOutcomes(userChoice, rock));
+    public static String gameOutcomes(String userChoice, String pcChoice) {
+        String outcome = "";
+        if (userChoice == Roshambo.ROCK.toString()) {
+            if (pcChoice == Roshambo.ROCK.toString()) {
+                outcome = "Tie Game!";
+
+            } else if (pcChoice == Roshambo.PAPER.toString()) {
+                outcome = "You lose!";
+
+            } else if (pcChoice == Roshambo.SCISSORS.toString()) {
+                outcome = "you win!";
+            }
+        } else if (userChoice == Roshambo.PAPER.toString()) {
+            if (pcChoice == Roshambo.ROCK.toString()) {
+                outcome = "you win!";
+
+            }
+            else if (pcChoice == Roshambo.PAPER.toString()) {
+                outcome = "Tie Game!";
+
+            }
+            else if (pcChoice == Roshambo.SCISSORS.toString()) {
+                outcome = "You lose!";
+
+            }
+        } else if (userChoice == Roshambo.SCISSORS.toString()) {
+            if (pcChoice == Roshambo.ROCK.toString()) {
+                outcome = "You lose!";
+
+
+            } else if (pcChoice == Roshambo.PAPER.toString()) {
+                outcome = "you win!";
+
+
+            } else if (pcChoice == Roshambo.SCISSORS.toString()) {
+                outcome = "Tie Game!";
+
+            }
+        }
+            return outcome;
     }
 }

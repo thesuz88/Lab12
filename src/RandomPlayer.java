@@ -16,13 +16,13 @@ public class RandomPlayer extends Player {
         int randomNum = y.nextInt(3) + 1;
 
         if (randomNum == 1) {
-            return "Rock";
+            return Roshambo.ROCK.toString();
         }
         else if (randomNum == 2) {
-            return "Paper";
+            return Roshambo.PAPER.toString();
         }
         else if (randomNum == 3) {
-            return "Scissors";
+            return Roshambo.SCISSORS.toString();
         }
         else {
             return null;

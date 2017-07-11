@@ -6,6 +6,6 @@ public class RockPlayer extends Player {
     @Override
     public String generateRoshambo() {
 
-        return  "Rock";
+        return  Roshambo.ROCK.toString();
     }
 }
