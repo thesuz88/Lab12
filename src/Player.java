@@ -4,13 +4,13 @@
 public abstract class Player {
 
     private String name;
-    private Roshambo choice;
+    private String choice;
 
-    public Roshambo getchoice() {
+    public String getchoice() {
         return choice;
     }
 
-    public void setChoice(Roshambo choice) {
+    public void setChoice(String choice) {
         this.choice = choice;
     }
 
@@ -24,7 +24,7 @@ public abstract class Player {
 
     public abstract String generateRoshambo();
 
-    public Roshambo choice() {
+    public String choice() {
         return choice;
     }
 

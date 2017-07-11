@@ -22,34 +22,48 @@ public class RoshamboApp {
             System.out.println("Would you like to play against 'The Rock' or 'The Nerd'? (R/N)");
             String aiPlayer = scan.nextLine();
 
-            while (!aiPlayer.equalsIgnoreCase("r") && !aiPlayer.equalsIgnoreCase("n")) {
-                System.out.println("I don't know who that is.");
-                System.out.println("Would you like to play against 'The Rock' or 'The Nerd'? (R/N) ");
-                aiPlayer = scan.nextLine();
-            }
+            aiPlayer = validatePlayer(scan, aiPlayer);
 
             do {
                 String userChoice = humanPlayer.generateRoshambo();
 
                 if (aiPlayer.equalsIgnoreCase("r")) {
-                    String rock = theRock.generateRoshambo();
-                    System.out.println(humanPlayer.getName() + ": " + userChoice);
-                    System.out.println("The Rock: " + theRock.generateRoshambo());
-                    gameOutcomes(userChoice, rock);
+                    playWithTheRock(humanPlayer, theRock, userChoice);
 
                 } else if (aiPlayer.equalsIgnoreCase("n")) {
-                    String randomChoice = theNerd.generateRoshambo();
-                    System.out.println("\n" + humanPlayer.getName() + ": " + userChoice);
-                    System.out.println("The Nerd: " + randomChoice);
-                    gameOutcomes(userChoice, randomChoice);
+                    playWithTheNerd(humanPlayer, theNerd, userChoice);
                 }
+
                 System.out.println("Would you like to play again? (Y/N)");
                 playAgain = scan.nextLine();
+
             } while (playAgain.equalsIgnoreCase("y"));
+
             System.out.println("Would you like to select a new opponent ('y' to continue, 'q' to quit)?");
             newOpponent = scan.nextLine();
+
+            newOpponent = validateNewOpponent(scan, newOpponent);
+
         } while (newOpponent.equalsIgnoreCase("y"));
+
         System.out.println("Glad you came to play!");
+    }
+
+    private static String validateNewOpponent(Scanner scan, String newOpponent){
+        while (!newOpponent.equalsIgnoreCase("y")&& !newOpponent.equalsIgnoreCase("q")){
+            System.out.println("Type 'y' to continue, 'q' to quit");
+            newOpponent = scan.nextLine();
+        }
+        return newOpponent;
+    }
+
+    private static String validatePlayer(Scanner scan, String aiPlayer) {
+        while (!aiPlayer.equalsIgnoreCase("r") && !aiPlayer.equalsIgnoreCase("n")) {
+            System.out.println("I don't know who that is.");
+            System.out.println("Would you like to play against 'The Rock' or 'The Nerd'? (R/N) ");
+            aiPlayer = scan.nextLine();
+        }
+        return aiPlayer;
     }
 
     public static void gameOutcomes(String userChoice, String pcChoice) {
@@ -80,5 +94,19 @@ public class RoshamboApp {
             }
         }
 
+    }
+
+    private static void playWithTheNerd(HumanPlayer humanPlayer, RandomPlayer theNerd, String userChoice) {
+        String randomChoice = theNerd.generateRoshambo();
+        System.out.println("\n" + humanPlayer.getName() + ": " + userChoice);
+        System.out.println("The Nerd: " + randomChoice);
+        gameOutcomes(userChoice, randomChoice);
+    }
+
+    private static void playWithTheRock(HumanPlayer humanPlayer, RockPlayer theRock, String userChoice) {
+        String rock = theRock.generateRoshambo();
+        System.out.println(humanPlayer.getName() + ": " + userChoice);
+        System.out.println("The Rock: " + theRock.generateRoshambo());
+        gameOutcomes(userChoice, rock);
     }
 }
